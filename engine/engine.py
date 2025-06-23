@@ -1,6 +1,5 @@
 from collections import defaultdict
-from typing import Sequence
-from pygame import Color, SurfaceType, Rect, Vector2
+from pygame import SurfaceType, Rect, Vector2
 from engine.collision import CollisionDetector, default_detectors
 from engine.interfaces import CollisionInfo, GameObject, EngineAPI, RaycastHit
 from engine.raycast import raycast
@@ -73,11 +72,11 @@ class Engine(EngineAPI):
             objUpd = game_obj.update(self.screen, self, dt)
             if objUpd and objUpd.object_moved:
                 objs_moved.append(game_obj)
-        
+
         # Update moved objects in spatial tree
         for moved_obj in objs_moved:
             self.spatial_tree.update_object(moved_obj)
-        
+
         # Collision detection
         collisions: list[tuple[CollisionInfo, tuple[GameObject, GameObject]]] = []
         for moved_obj in objs_moved:
